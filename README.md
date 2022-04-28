@@ -1,9 +1,9 @@
 Java Core:
 - access modifier +
-- String/StringBuilder/StringBuffer +/-
+- String/StringBuilder/StringBuffer +
 - changing modificators, parameters, return type and throwing block for ovverided methods +/-
 - passing an argument by reference/value +/-
-- String pull -
+- String pull +
 
 
 
@@ -29,10 +29,10 @@ Exception:
 
 
 Collection:
-- main interfaces and their implementations +/-
-- structure ArrayList/LinkedList +/-
-- comparison ArrayList/LinkedList +/-
-- comparison ArrayList/Vector +/-
+- main interfaces and their implementations +
+- structure ArrayList/LinkedList +
+- comparison ArrayList/LinkedList +
+- comparison ArrayList/Vector +
 - comparison HashMap/HashTable +
 - Iterable/Iterator +
 - EntrySet -
