@@ -11,40 +11,58 @@ public class IteratorEx {
         Iterator<String> customIterator = list.iterator();
         while (customIterator.hasNext()) {
             String value = customIterator.next();
+            customIterator.remove();
             System.out.print(value + ", ");
         }
+
+        System.out.println("\n" + list.currentSize());
     }
 }
 
 
 class CustomList<Type> implements Iterable<Type> {
 
-    private final Type[] arrayList;
-    private final int Size;
+    private Type[] arrayList;
 
     public CustomList(Type[] newArray) {
         this.arrayList = newArray;
-        this.Size = arrayList.length;
+    }
+
+    public int currentSize(){
+        return arrayList.length;
     }
 
     @Override
     public Iterator<Type> iterator() {
         Iterator<Type> it = new Iterator<>() {
             private int currentIndex = 0;
+            boolean elementRemoved = false;
 
             @Override
             public boolean hasNext() {
-                return currentIndex < Size && arrayList[currentIndex] != null;
+                return currentIndex < arrayList.length && arrayList[currentIndex] != null;
             }
 
             @Override
             public Type next() {
+                elementRemoved = false;
                 return arrayList[currentIndex++];
             }
 
             @Override
             public void remove() {
-                throw new UnsupportedOperationException();
+                if(elementRemoved)
+                    throw new IllegalStateException("must call next() before calling remove()");
+
+                Type[] newData = (Type[]) new Object[arrayList.length-1];
+                System.arraycopy(arrayList, 0, newData, 0, currentIndex-1); // bottom half.
+
+                if(currentIndex-1 < newData.length)
+                    System.arraycopy(arrayList, currentIndex, newData, currentIndex-1, arrayList.length-currentIndex--); // top half.
+
+
+                arrayList = newData;
+                elementRemoved = true;
             }
         };
         return it;
